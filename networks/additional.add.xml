@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  additional.add.xml
+  Supplementary detector configuration for the 3x3 grid network.
+
+  Contains E2 (lane-area) detectors on every incoming lane of each
+  traffic-light controlled junction: A1, B0, B1, B2, C1.
+
+  E2 detector parameters:
+    id       : unique detector ID, named det_<lane_id>
+    lane     : the lane being monitored
+    pos      : start position along the lane (metres from lane start)
+    length   : length of the detection zone in metres
+    freq     : output aggregation interval (seconds); set to 1 for step-wise RL use
+    file     : output file (required by SUMO but not used in TraCI mode)
+
+  Placement strategy:
+    Incoming lane lengths are 183.2 m (outer lanes) or 179.2 m (inner lanes).
+    Detectors start at pos=50m and extend 100m (covers 50m–150m of the approach).
+    This captures queue buildup and approach occupancy without touching the
+    internal junction area.
+
+  TraCI access during training:
+    traci.lanearea.getLastStepVehicleNumber(det_id)  -> vehicle count
+    traci.lanearea.getLastStepOccupancy(det_id)      -> occupancy (0.0–1.0)
+    traci.lanearea.getLastStepMeanSpeed(det_id)      -> mean speed
+    traci.lanearea.getJamLengthVehicle(det_id)       -> queue length (vehicles)
+
+  These four metrics will form the per-lane observation features in
+  state_extractor.py (Phase 2).
+
+  Detector grouping by junction:
+    A1  : A2A1_0, A2A1_1, B1A1_0, B1A1_1, A0A1_0, A0A1_1      (6 lanes, 3 approaches)
+    B0  : B1B0_0, B1B0_1, C0B0_0, C0B0_1, A0B0_0, A0B0_1      (6 lanes, 3 approaches)
+    B1  : B2B1_0, B2B1_1, C1B1_0, C1B1_1, B0B1_0, B0B1_1,
+          A1B1_0, A1B1_1                                         (8 lanes, 4 approaches)
+    B2  : C2B2_0, C2B2_1, B1B2_0, B1B2_1, A2B2_0, A2B2_1      (6 lanes, 3 approaches)
+    C1  : C2C1_0, C2C1_1, C0C1_0, C0C1_1, B1C1_0, B1C1_1      (6 lanes, 3 approaches)
+-->
+
+<additional>
+
+    <!-- ============================================================ -->
+    <!-- Junction A1 (x=0, y=200) — West edge, middle row            -->
+    <!-- Approaches: from A2 (south), from B1 (east), from A0 (north)-->
+    <!-- ============================================================ -->
+
+    <!-- From A2 (southbound) -->
+    <laneAreaDetector id="det_A2A1_0" lane="A2A1_0" pos="50" length="100" freq="1" file="results/detectors.xml"/>
+    <laneAreaDetector id="det_A2A1_1" lane="A2A1_1" pos="50" length="100" freq="1" file="results/detectors.xml"/>
+
+    <!-- From B1 (westbound) -->
+    <laneAreaDetector id="det_B1A1_0" lane="B1A1_0" pos="50" length="100" freq="1" file="results/detectors.xml"/>
+    <laneAreaDetector id="det_B1A1_1" lane="B1A1_1" pos="50" length="100" freq="1" file="results/detectors.xml"/>
+
+    <!-- From A0 (northbound) -->
+    <laneAreaDetector id="det_A0A1_0" lane="A0A1_0" pos="50" length="100" freq="1" file="results/detectors.xml"/>
+    <laneAreaDetector id="det_A0A1_1" lane="A0A1_1" pos="50" length="100" freq="1" file="results/detectors.xml"/>
+
+
+    <!-- ============================================================ -->
+    <!-- Junction B0 (x=200, y=0) — Bottom edge, middle column       -->
+    <!-- Approaches: from B1 (north), from C0 (west), from A0 (east) -->
+    <!-- ============================================================ -->
+
+    <!-- From B1 (northbound) -->
+    <laneAreaDetector id="det_B1B0_0" lane="B1B0_0" pos="50" length="100" freq="1" file="results/detectors.xml"/>
+    <laneAreaDetector id="det_B1B0_1" lane="B1B0_1" pos="50" length="100" freq="1" file="results/detectors.xml"/>
+
+    <!-- From C0 (eastbound) -->
+    <laneAreaDetector id="det_C0B0_0" lane="C0B0_0" pos="50" length="100" freq="1" file="results/detectors.xml"/>
+    <laneAreaDetector id="det_C0B0_1" lane="C0B0_1" pos="50" length="100" freq="1" file="results/detectors.xml"/>
+
+    <!-- From A0 (westbound) -->
+    <laneAreaDetector id="det_A0B0_0" lane="A0B0_0" pos="50" length="100" freq="1" file="results/detectors.xml"/>
+    <laneAreaDetector id="det_A0B0_1" lane="A0B0_1" pos="50" length="100" freq="1" file="results/detectors.xml"/>
+
+
+    <!-- ============================================================ -->
+    <!-- Junction B1 (x=200, y=200) — Centre intersection            -->
+    <!-- Approaches: from B2 (south), from C1 (west), from B0 (north)-->
+    <!--             from A1 (east)                                   -->
+    <!-- ============================================================ -->
+
+    <!-- From B2 (southbound) -->
+    <laneAreaDetector id="det_B2B1_0" lane="B2B1_0" pos="50" length="100" freq="1" file="results/detectors.xml"/>
+    <laneAreaDetector id="det_B2B1_1" lane="B2B1_1" pos="50" length="100" freq="1" file="results/detectors.xml"/>
+
+    <!-- From C1 (westbound) -->
+    <laneAreaDetector id="det_C1B1_0" lane="C1B1_0" pos="50" length="100" freq="1" file="results/detectors.xml"/>
+    <laneAreaDetector id="det_C1B1_1" lane="C1B1_1" pos="50" length="100" freq="1" file="results/detectors.xml"/>
+
+    <!-- From B0 (northbound) -->
+    <laneAreaDetector id="det_B0B1_0" lane="B0B1_0" pos="50" length="100" freq="1" file="results/detectors.xml"/>
+    <laneAreaDetector id="det_B0B1_1" lane="B0B1_1" pos="50" length="100" freq="1" file="results/detectors.xml"/>
+
+    <!-- From A1 (eastbound) -->
+    <laneAreaDetector id="det_A1B1_0" lane="A1B1_0" pos="50" length="100" freq="1" file="results/detectors.xml"/>
+    <laneAreaDetector id="det_A1B1_1" lane="A1B1_1" pos="50" length="100" freq="1" file="results/detectors.xml"/>
+
+
+    <!-- ============================================================ -->
+    <!-- Junction B2 (x=200, y=400) — Top edge, middle column        -->
+    <!-- Approaches: from C2 (east), from B1 (south), from A2 (west) -->
+    <!-- ============================================================ -->
+
+    <!-- From C2 (eastbound) -->
+    <laneAreaDetector id="det_C2B2_0" lane="C2B2_0" pos="50" length="100" freq="1" file="results/detectors.xml"/>
+    <laneAreaDetector id="det_C2B2_1" lane="C2B2_1" pos="50" length="100" freq="1" file="results/detectors.xml"/>
+
+    <!-- From B1 (southbound) -->
+    <laneAreaDetector id="det_B1B2_0" lane="B1B2_0" pos="50" length="100" freq="1" file="results/detectors.xml"/>
+    <laneAreaDetector id="det_B1B2_1" lane="B1B2_1" pos="50" length="100" freq="1" file="results/detectors.xml"/>
+
+    <!-- From A2 (westbound) -->
+    <laneAreaDetector id="det_A2B2_0" lane="A2B2_0" pos="50" length="100" freq="1" file="results/detectors.xml"/>
+    <laneAreaDetector id="det_A2B2_1" lane="A2B2_1" pos="50" length="100" freq="1" file="results/detectors.xml"/>
+
+
+    <!-- ============================================================ -->
+    <!-- Junction C1 (x=400, y=200) — East edge, middle row          -->
+    <!-- Approaches: from C2 (south), from C0 (north), from B1 (west)-->
+    <!-- ============================================================ -->
+
+    <!-- From C2 (southbound) -->
+    <laneAreaDetector id="det_C2C1_0" lane="C2C1_0" pos="50" length="100" freq="1" file="results/detectors.xml"/>
+    <laneAreaDetector id="det_C2C1_1" lane="C2C1_1" pos="50" length="100" freq="1" file="results/detectors.xml"/>
+
+    <!-- From C0 (northbound) -->
+    <laneAreaDetector id="det_C0C1_0" lane="C0C1_0" pos="50" length="100" freq="1" file="results/detectors.xml"/>
+    <laneAreaDetector id="det_C0C1_1" lane="C0C1_1" pos="50" length="100" freq="1" file="results/detectors.xml"/>
+
+    <!-- From B1 (eastbound) -->
+    <laneAreaDetector id="det_B1C1_0" lane="B1C1_0" pos="50" length="100" freq="1" file="results/detectors.xml"/>
+    <laneAreaDetector id="det_B1C1_1" lane="B1C1_1" pos="50" length="100" freq="1" file="results/detectors.xml"/>
+
+</additional>

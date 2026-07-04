@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  routes.rou.xml
+  Traffic demand definition for the 3x3 grid network.
+
+  Grid layout (node IDs):
+    A2 === B2 === C2   (y=400, top row)
+    |      |      |
+    A1 === B1 === C1   (y=200, middle row)
+    |      |      |
+    A0 === B0 === C0   (y=0,   bottom row)
+
+  Corner nodes (A0, A2, C0, C2) are network boundary nodes — not signalized.
+  Signalized nodes: A1, B0, B1, B2, C1.
+
+  Flows are defined for 3600 seconds (1 simulated hour).
+  Period = 3.0s => approx 1200 vehicles/hour per flow (moderate demand).
+
+  Route naming convention: r_<from_node>_<to_node>
+-->
+
+<routes>
+
+    <!-- ===== Vehicle Type ===== -->
+    <!--
+      A single standard car type.
+      accel/decel and sigma (driver imperfection) are SUMO defaults.
+      No emergency vehicles in Phase 1.
+    -->
+    <vType id="car"
+           accel="2.6"
+           decel="4.5"
+           sigma="0.5"
+           length="5.0"
+           minGap="2.5"
+           maxSpeed="13.89"
+           guiShape="passenger"/>
+
+    <!-- ===== Route Definitions ===== -->
+
+    <!-- Horizontal: West → East (bottom row) -->
+    <route id="r_A0_C0" edges="A0B0 B0C0"/>
+
+    <!-- Horizontal: East → West (bottom row) -->
+    <route id="r_C0_A0" edges="C0B0 B0A0"/>
+
+    <!-- Horizontal: West → East (middle row) -->
+    <route id="r_A1_C1" edges="A1B1 B1C1"/>
+
+    <!-- Horizontal: East → West (middle row) -->
+    <route id="r_C1_A1" edges="C1B1 B1A1"/>
+
+    <!-- Horizontal: West → East (top row) -->
+    <route id="r_A2_C2" edges="A2B2 B2C2"/>
+
+    <!-- Horizontal: East → West (top row) -->
+    <route id="r_C2_A2" edges="C2B2 B2A2"/>
+
+    <!-- Vertical: South → North (left column) -->
+    <route id="r_A0_A2" edges="A0A1 A1A2"/>
+
+    <!-- Vertical: North → South (left column) -->
+    <route id="r_A2_A0" edges="A2A1 A1A0"/>
+
+    <!-- Vertical: South → North (middle column) -->
+    <route id="r_B0_B2" edges="B0B1 B1B2"/>
+
+    <!-- Vertical: North → South (middle column) -->
+    <route id="r_B2_B0" edges="B2B1 B1B0"/>
+
+    <!-- Vertical: South → North (right column) -->
+    <route id="r_C0_C2" edges="C0C1 C1C2"/>
+
+    <!-- Vertical: North → South (right column) -->
+    <route id="r_C2_C0" edges="C2C1 C1C0"/>
+
+    <!-- Diagonal: SW → NE (bottom-left to top-right) -->
+    <route id="r_A0_C2" edges="A0A1 A1B1 B1C1 C1C2"/>
+
+    <!-- Diagonal: NE → SW (top-right to bottom-left) -->
+    <route id="r_C2_A0" edges="C2C1 C1B1 B1A1 A1A0"/>
+
+    <!-- Diagonal: NW → SE (top-left to bottom-right) -->
+    <route id="r_A2_C0" edges="A2B2 B2B1 B1B0 B0C0"/>
+
+    <!-- Diagonal: SE → NW (bottom-right to top-left) -->
+    <route id="r_C0_A2" edges="C0B0 B0B1 B1B2 B2A2"/>
+
+    <!-- ===== Traffic Flows ===== -->
+    <!--
+      Each flow runs for the full 3600s simulation.
+      period="3.0" => one vehicle every 3 seconds per flow.
+      This produces moderate, sustained demand across all corridors.
+      Flows are staggered with departLane="best" so SUMO selects
+      the optimal starting lane automatically.
+    -->
+
+    <!-- Horizontal flows -->
+    <flow id="f_A0_C0" type="car" route="r_A0_C0" begin="0"   end="3600" period="3.0" departLane="best" departSpeed="max"/>
+    <flow id="f_C0_A0" type="car" route="r_C0_A0" begin="0"   end="3600" period="3.0" departLane="best" departSpeed="max"/>
+    <flow id="f_A1_C1" type="car" route="r_A1_C1" begin="0"   end="3600" period="3.0" departLane="best" departSpeed="max"/>
+    <flow id="f_C1_A1" type="car" route="r_C1_A1" begin="0"   end="3600" period="3.0" departLane="best" departSpeed="max"/>
+    <flow id="f_A2_C2" type="car" route="r_A2_C2" begin="0"   end="3600" period="3.0" departLane="best" departSpeed="max"/>
+    <flow id="f_C2_A2" type="car" route="r_C2_A2" begin="0"   end="3600" period="3.0" departLane="best" departSpeed="max"/>
+
+    <!-- Vertical flows -->
+    <flow id="f_A0_A2" type="car" route="r_A0_A2" begin="0"   end="3600" period="3.0" departLane="best" departSpeed="max"/>
+    <flow id="f_A2_A0" type="car" route="r_A2_A0" begin="0"   end="3600" period="3.0" departLane="best" departSpeed="max"/>
+    <flow id="f_B0_B2" type="car" route="r_B0_B2" begin="0"   end="3600" period="3.0" departLane="best" departSpeed="max"/>
+    <flow id="f_B2_B0" type="car" route="r_B2_B0" begin="0"   end="3600" period="3.0" departLane="best" departSpeed="max"/>
+    <flow id="f_C0_C2" type="car" route="r_C0_C2" begin="0"   end="3600" period="3.0" departLane="best" departSpeed="max"/>
+    <flow id="f_C2_C0" type="car" route="r_C2_C0" begin="0"   end="3600" period="3.0" departLane="best" departSpeed="max"/>
+
+    <!-- Diagonal flows (cross-network demand) -->
+    <flow id="f_A0_C2" type="car" route="r_A0_C2" begin="0"   end="3600" period="5.0" departLane="best" departSpeed="max"/>
+    <flow id="f_C2_A0" type="car" route="r_C2_A0" begin="0"   end="3600" period="5.0" departLane="best" departSpeed="max"/>
+    <flow id="f_A2_C0" type="car" route="r_A2_C0" begin="0"   end="3600" period="5.0" departLane="best" departSpeed="max"/>
+    <flow id="f_C0_A2" type="car" route="r_C0_A2" begin="0"   end="3600" period="5.0" departLane="best" departSpeed="max"/>
+
+</routes>
