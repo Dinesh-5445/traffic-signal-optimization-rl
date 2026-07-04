@@ -1,0 +1,14 @@
+# Core RL framework
+stable-baselines3>=2.0.0
+torch>=2.0.0
+
+# Simulation interface
+gymnasium>=0.28.1
+traci
+sumolib
+
+# Numerical computing
+numpy>=1.24.0
+
+# Visualisation
+matplotlib>=3.7.0
