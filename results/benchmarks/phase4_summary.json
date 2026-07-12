@@ -1,0 +1,47 @@
+[
+  {
+    "policy": "PPO Agent",
+    "num_episodes": 5,
+    "mean_total_reward": -171872.2,
+    "std_total_reward": 4608.54,
+    "mean_avg_queue_per_step": 343.74,
+    "std_avg_queue_per_step": 9.22,
+    "mean_var_queue": 4366.22,
+    "mean_avg_waiting_time": 49046.96,
+    "std_avg_waiting_time": 5529.86,
+    "mean_throughput": 9607,
+    "std_throughput": 218.44,
+    "mean_signal_switches": 353,
+    "std_signal_switches": 24.32
+  },
+  {
+    "policy": "Fixed-Time (30s)",
+    "num_episodes": 5,
+    "mean_total_reward": -73073.6,
+    "std_total_reward": 612.92,
+    "mean_avg_queue_per_step": 146.15,
+    "std_avg_queue_per_step": 1.23,
+    "mean_var_queue": 562.77,
+    "mean_avg_waiting_time": 1541.98,
+    "std_avg_waiting_time": 24.04,
+    "mean_throughput": 10658.2,
+    "std_throughput": 28.15,
+    "mean_signal_switches": 415,
+    "std_signal_switches": 0.0
+  },
+  {
+    "policy": "Random",
+    "num_episodes": 5,
+    "mean_total_reward": -77905.6,
+    "std_total_reward": 2746.28,
+    "mean_avg_queue_per_step": 155.81,
+    "std_avg_queue_per_step": 5.49,
+    "mean_var_queue": 1766.35,
+    "mean_avg_waiting_time": 1713.96,
+    "std_avg_waiting_time": 172.61,
+    "mean_throughput": 12969,
+    "std_throughput": 92.84,
+    "mean_signal_switches": 1240.2,
+    "std_signal_switches": 33.32
+  }
+]
