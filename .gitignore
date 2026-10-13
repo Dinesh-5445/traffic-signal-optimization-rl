@@ -126,3 +126,29 @@ emission*.xml
 .cache/
 tmp/
 temp/
+# Local diagnostics and temporary inspection files
+/current_validation.txt
+/python_files.txt
+/diagnostic.py
+/diagnostic2.py
+/diagnostic3.py
+/scratch_test.py
+/RESEARCH_FOUNDATION.md
+
+# Generated experiment checkpoints and intermediate outputs
+/results/EXP-*/
+/results/models/
+/results/smoke_test/
+/results/smoke_test_stability/
+/results/test_benchmark/
+
+# Per-run traffic diagnostics
+/results/v2_signal_diagnostics_*.csv
+
+# Local experiment outputs; keep curated benchmark evidence tracked
+# Ignore generated phase-4 outputs, but retain the final evaluation dataset
+/results/phase4_final/*
+!/results/phase4_final/raw_episodes.csv
+/results/phase4_final/
+/results/plots/
+/results/v2/
