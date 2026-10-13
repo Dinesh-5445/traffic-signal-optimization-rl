@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="grid.net.xml" />
+        <route-files value="routes_random.rou.xml" />
+        <additional-files value="additional.add.xml" />
+    </input>
+
+    <time>
+        <begin value="0" />
+    </time>
+
+    <random_number><seed value="42" /></random_number></configuration>

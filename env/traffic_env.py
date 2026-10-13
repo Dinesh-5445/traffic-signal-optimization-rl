@@ -3,12 +3,22 @@ from gymnasium import spaces
 import numpy as np
 import os
 import sys
+import logging
 from typing import List, Dict, Optional, Tuple, Any
 
 # Enable libsumo for 10-100x faster simulation, bypassing TraCI sockets
 os.environ["LIBSUMO_AS_TRACI"] = "1"
 import traci
 import sumolib
+
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.DEBUG)
+if not logger.handlers:
+    ch = logging.StreamHandler(sys.stdout)
+    ch.setLevel(logging.DEBUG)
+    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    ch.setFormatter(formatter)
+    logger.addHandler(ch)
 
 class TrafficEnv(gym.Env):
     def __init__(self, sumo_cmd: List[str], delta_time: int = 5, max_steps: int = 500) -> None:
@@ -74,6 +84,8 @@ class TrafficEnv(gym.Env):
         # Handle yellow phase transitions
         need_yellow = False
         for tl in self.ts_ids:
+            traci.trafficlight.setPhaseDuration(tl, 1000)
+            
             current_phase = traci.trafficlight.getPhase(tl)
             target_phase = target_phases[tl]
             
@@ -89,8 +101,24 @@ class TrafficEnv(gym.Env):
                 traci.simulationStep()
                 
         # Set target phase
-        for tl in self.ts_ids:
-            traci.trafficlight.setPhase(tl, target_phases[tl])
+        timestamp = traci.simulation.getTime()
+        for i, tl in enumerate(self.ts_ids):
+            commanded_phase = target_phases[tl]
+            traci.trafficlight.setPhase(tl, commanded_phase)
+            traci.trafficlight.setPhaseDuration(tl, 1000)
+            
+            actual_phase = traci.trafficlight.getPhase(tl)
+            
+            edges = self.tl_edges[tl]
+            total_queue = sum([self._get_queue(edges[d]) for d in ['N', 'S', 'E', 'W']])
+            
+            logger.debug(f"Time {timestamp:.1f}s | TL: {tl} | Action: {action[i]} | "
+                         f"CmdPhase: {commanded_phase} | ActualPhase: {actual_phase} | "
+                         f"CmdDur: 1000 | ActDur: {traci.trafficlight.getPhaseDuration(tl)} | "
+                         f"Queue: {total_queue:.1f}")
+                         
+            if commanded_phase != actual_phase:
+                logger.warning(f"MISMATCH at {tl}: Commanded {commanded_phase} but actual is {actual_phase}")
             
         # Simulate for delta time
         for _ in range(self.delta_time):

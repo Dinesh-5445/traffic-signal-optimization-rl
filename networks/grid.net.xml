@@ -312,34 +312,34 @@
     </edge>
 
     <tlLogic id="A1" type="static" programID="0" offset="0">
-        <phase duration="42" state="GGgrrrGGG"/>
-        <phase duration="3"  state="yyyrrrGyy"/>
-        <phase duration="42" state="rrrGGGGrr"/>
-        <phase duration="3"  state="rrryyyGrr"/>
+        <phase duration="60"  state="GGgrrrGGG"/>
+        <phase duration="3"   state="yyyrrrGyy"/>
+        <phase duration="60"  state="rrrGGGGrr"/>
+        <phase duration="3"   state="rrryyyGrr"/>
     </tlLogic>
     <tlLogic id="B0" type="static" programID="0" offset="0">
-        <phase duration="42" state="GGGGrrrrr"/>
-        <phase duration="3"  state="yyyGrrrrr"/>
-        <phase duration="42" state="rrrGGGGGg"/>
-        <phase duration="3"  state="rrrGyyyyy"/>
+        <phase duration="60"  state="GGGGrrrrr"/>
+        <phase duration="3"   state="yyyGrrrrr"/>
+        <phase duration="60"  state="rrrGGGGGg"/>
+        <phase duration="3"   state="rrrGyyyyy"/>
     </tlLogic>
     <tlLogic id="B1" type="static" programID="0" offset="0">
-        <phase duration="42" state="GGGgrrrrGGGgrrrr"/>
-        <phase duration="3"  state="yyyyrrrryyyyrrrr"/>
-        <phase duration="42" state="rrrrGGGgrrrrGGGg"/>
-        <phase duration="3"  state="rrrryyyyrrrryyyy"/>
+        <phase duration="60"  state="GGGgrrrrGGGgrrrr"/>
+        <phase duration="3"   state="yyyyrrrryyyyrrrr"/>
+        <phase duration="60"  state="rrrrGGGgrrrrGGGg"/>
+        <phase duration="3"   state="rrrryyyyrrrryyyy"/>
     </tlLogic>
     <tlLogic id="B2" type="static" programID="0" offset="0">
-        <phase duration="42" state="rrrGGGGrr"/>
-        <phase duration="3"  state="rrryyyGrr"/>
-        <phase duration="42" state="GGgrrrGGG"/>
-        <phase duration="3"  state="yyyrrrGyy"/>
+        <phase duration="60"  state="rrrGGGGrr"/>
+        <phase duration="3"   state="rrryyyGrr"/>
+        <phase duration="60"  state="GGgrrrGGG"/>
+        <phase duration="3"   state="yyyrrrGyy"/>
     </tlLogic>
     <tlLogic id="C1" type="static" programID="0" offset="0">
-        <phase duration="42" state="GGGGGgrrr"/>
-        <phase duration="3"  state="Gyyyyyrrr"/>
-        <phase duration="42" state="GrrrrrGGG"/>
-        <phase duration="3"  state="Grrrrryyy"/>
+        <phase duration="60"  state="GGGGGgrrr"/>
+        <phase duration="3"   state="Gyyyyyrrr"/>
+        <phase duration="60"  state="GrrrrrGGG"/>
+        <phase duration="3"   state="Grrrrryyy"/>
     </tlLogic>
 
     <junction id="A0" type="priority" x="0.00" y="0.00" incLanes="A1A0_0 A1A0_1 B0A0_0 B0A0_1" intLanes=":A0_0_0 :A0_0_1 :A0_2_0 :A0_2_1" shape="-6.40,6.40 6.40,6.40 6.40,-6.40 2.49,-6.04 -0.71,-4.98 -3.20,-3.20 -4.98,-0.71 -6.04,2.49">
